@@ -75,10 +75,11 @@ const validarCampo = (expresion, input, campo) =>{
 }
 
 const validarPassword2 = () => {
-    const inputPassword1 = document.getElementById('password');
+    const inputPassword1 = document.getElementById('password1');
     const inputPassword2 = document.getElementById('password2');
 
-    if (inputPassword1.value !== inputPassword2.value) {
+
+    if (inputPassword1.value != inputPassword2.value) {
         document.getElementById('grupo__password2').classList.add('formulario__grupo-incorrecto');
         document.getElementById('grupo__password2').classList.remove('formulario__grupo-correcto');
 		document.getElementById('password2-error').classList.add('formulario__input-error-activo');
@@ -101,8 +102,4 @@ const validarPassword2 = () => {
 inputs.forEach((input) => {
     input.addEventListener('blur', validarFormulario);
 	input.addEventListener('keyup', validarFormulario);
-});
-
-formulario.addEventListener('submit', (e) =>{
-    e.preventDefault();
 });

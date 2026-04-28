@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse, HttpResponse
 import json
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 def cargarInicio(request):
@@ -141,19 +142,18 @@ def cargarAgregarUsuario(request):
     return render(request, "registration/registro.html", data)
 
 def agregarUsuario(request):
-    v_correo = request.POST['correo']
-    v_nombre = request.POST['nombre']
-    v_apellido = request.POST['apellido']
-    if request.POST['password'] == request.POST['password2'] and request.POST['password'] != '':
-        v_contraseña = request.POST['password']
-        Usuario.objects.create(correo = v_correo,  nombre=v_nombre, apellido=v_apellido, contraseña=v_contraseña)
-    elif request.POST['password'] == '' or request.POST['password2'] == '':
-        print("Alguno de los campos de contraseña está vacio")
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+        else:
+            print("El formulario enviado no es valido")
     else:
-        print("Contraseña invalida")
+        form = UserCreationForm()
 
-    
-    return redirect("/registrar")
+    return render(request, "registration/registro.html", {"form": form})
 @csrf_exempt
 def actualizar_stock(request):
      if request.method == 'POST':

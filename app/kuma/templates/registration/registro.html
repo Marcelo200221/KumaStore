@@ -17,16 +17,47 @@
 		<div class="img">
 		</div>
 		<div class="register-content">
-			<form action="#" id="formulario" enctype="multipart/form-data" method="post"> 
+			<form action="{% url 'registrar' %}" method="post" id="formulario" enctype="multipart/form-data"> 
 				{% csrf_token %}
 				<h2 class="title">Crear una cuenta</h2>
-				
-           		
-			  	{{form | crispy}}
-			  <input type="submit" class="btn" value="Registrarse">
+
+				<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Nombre de usuario</h5>
+           		   		<input type="text" class="input" name="username">
+           		   </div>
+           		</div>
+
+				<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Contraseña</h5>
+           		    	<input type="password" id="password1" class="input" name="password1">
+            	   </div>
+            	</div>
+
+				<div class="input-div pass" id="grupo__password2">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Confirmar Contraseña</h5>
+           		    	<input type="password" id="password2" class="input" name="password2">
+            	   </div>
+            	</div>
+				<p id="password2-error" class="formulario__input-error">
+					Las contraseñas no coinciden
+				</p>
+
+			  	<button type="submit" class="btn">Registrarse</button>
             </form>
         </div>
 
-    <!--<script type="text/javascript" src="{% static 'js/registro.js'%}"></script>-->
+    <script type="text/javascript" src="{% static 'js/registro.js'%}"></script>
 </body>
 </html>

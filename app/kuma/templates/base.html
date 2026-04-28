@@ -12,6 +12,13 @@
     <script src="https://kit.fontawesome.com/2bddaf117c.js" crossorigin="anonymous"></script>
     <title>Los mejores productos para tu mascota | Kuma!</title>
     <link rel="icon" href="{% static 'IMG/logo titulo.png'%}">
+    <script>
+      const modo = localStorage.getItem("switch")
+
+      if (modo === "activo"){
+        document.documentElement.classList.add("dark")
+      }
+    </script>
     {% block head %}
 
     {% endblock %}
@@ -84,7 +91,12 @@
           </li>
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <a href="{% url 'logout' %}" class="cerrar">Cerrar sesion</a>
+            <li class="nav-item">
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="cerrar">Cerrar sesión</button>
+            </form>
+          </li>
           </li>
 
           {% else %}
@@ -258,5 +270,6 @@
     </div>
   
   </footer>
+  
   <script src="{% static 'JS/funciones-estetica.js' %}"></script>
 </html>

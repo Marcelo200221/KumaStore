@@ -15,9 +15,9 @@
     <h3>Comidas nutritivas para tu mascota</h3>
     </div>
     
-    <div class="row">
+    <div class="row justify-content-center">
       {% for p in prod %}
-      <div class="col">
+      <div class="col-md-4 d-flex justify-content-center">
         <div class="card" style="width: 18rem;">
           <img src="{{p.imagen_url.url}}" class="card-image" alt="...">
           <div class="card-body">

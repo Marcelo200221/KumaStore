@@ -35,6 +35,8 @@
 }
 
 .row{
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
@@ -117,6 +119,7 @@ body.dark {
 }
 .container{
     color: black;
+
 }
 
 body.dark .container {
@@ -260,6 +263,12 @@ body.dark .card-text2{
     color: #ffffff;
 }
 
+body.dark #btn-volver{
+    background-image: linear-gradient(to right, #fff, #fff, #fff);
+    transition: 0.3s ease all;
+    color: #000;
+}
+
 .modal-backdrop.show {
     display: none; /* Ajusta este valor según sea necesario */
 }
@@ -272,6 +281,18 @@ body.dark .cerrar, body.dark .inicio{
     margin-left: 10px;
     text-decoration: none;
     transition: .3s ease all;
+}
+
+.table {
+    background-color: white;
+}
+
+.table tbody,
+.table thead,
+.table tr,
+.table td,
+.table th {
+    background-color: white;
 }
 
 

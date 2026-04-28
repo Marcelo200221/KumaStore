@@ -18,10 +18,10 @@
 		<div class="img">
 		</div>
 		<div class="login-content">
-			<form action="" method="post" enctype="multipart/form-data">
+			<form action="{% url 'login' %}" method="post" enctype="multipart/form-data">
 				{% csrf_token %}
 				<h2 class="title">Iniciar Sesion</h2>
-				<!--<h2 class="title">Iniciar Sesion</h2>
+				
 
            		<div class="input-div one">
            		   <div class="i">
@@ -29,7 +29,7 @@
            		   </div>
            		   <div class="div">
            		   		<h5>Correo electrónico</h5>
-           		   		<input type="text" class="input">
+           		   		<input type="text" class="input" name="username">
            		   </div>
            		</div>
 
@@ -39,14 +39,13 @@
            		   </div>
            		   <div class="div">
            		    	<h5>Contraseña</h5>
-           		    	<input type="password" class="input">
+           		    	<input type="password" class="input" name="password">
             	   </div>
             	</div>
-            	<a class="ocontraseña" href="#">¿Olvido su contraseña?</a>
+            	
             	<input type="submit" class="btn" value="Iniciar Sesión">
-				<a class="tcuenta" href="registro.html" >¿Necesitas tiene una cuenta?</a>-->
-				{{form | crispy}}
-				<input type="submit" class="btn" value="Iniciar Sesión">
+				<a class="ocontraseña" href="#">¿Olvido su contraseña?</a>
+				<a class="tcuenta" href="../../registrar" >¿Necesitas tiene una cuenta?</a>
             </form>
         </div>
     </div>

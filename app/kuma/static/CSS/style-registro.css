@@ -153,17 +153,22 @@ a{
 	transition: .3s;
 }
 
+@keyframes errorFade {
+	0%  {opacity: 1;}
+	50% {opacity: 0.5;}
+	100%{opacity: 1;}
+}
+
 .formulario__input-error{
-	display: block;
-	text-align: left;
+	display: none;
 	text-decoration: none;
 	color: rgb(206, 22, 22);
+	animation: errorFade 1.2s infinite;
 	font-size: 0.9rem;
-	display: none;
 }
 
 .formulario__input-error-activo {
-	display: block;
+	display: flex;
 }
 
 a:hover{
