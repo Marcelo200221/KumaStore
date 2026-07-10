@@ -3,4 +3,4 @@ crispy-bootstrap5
 gunicorn
 dj-database-url
 whitenoise
-psygopg2-binary
+psycopg2-binary
