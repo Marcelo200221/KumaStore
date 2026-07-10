@@ -8,11 +8,9 @@ app/kumaStore/*/__pycache__
 
 app/apiRest/__pycache__
 
-app/apiRest/migrations
 
 app/apiRest/*/__pycache__
 
-app/kuma/migrations
 
 
 app/kumaStore/.env
