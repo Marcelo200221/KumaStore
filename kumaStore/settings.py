@@ -14,9 +14,14 @@ from pathlib import Path
 import os
 import dj_database_url
 from django.contrib.messages import constants as mensajes
-from dotenv import load_dotenv
 
-load_dotenv()
+try:
+
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except ImportError:
+    pass
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
