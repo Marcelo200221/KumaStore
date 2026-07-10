@@ -17,11 +17,11 @@ def cargarInicio(request):
     
 def cargarSesion(request):
    return render(request,"registration/login.html")
-@login_required
+
 def cargarBandana(request):
     cate_bandanas = Producto.objects.filter(categoria_id = 4, stock__gt = 0)
     return render(request, "bandanas.html", {"prod": cate_bandanas})
-@login_required
+
 def cargarComida(request):
     cate_comida = Producto.objects.filter(categoria_id = 8)
     return render(request, "comida.html", {"prod": cate_comida})
@@ -30,15 +30,15 @@ def cargarAgregarProducto(request):
     productos = Producto.objects.all()
     categorias = Categoria.objects.all()
     return render(request, "agregar_producto.html", {"prod": productos, "cate": categorias})
-@login_required
+
 def cargarCorreas(request):
     productos = Producto.objects.filter(categoria_id = 5)
     return render(request, "correas.html", {"prod": productos})
-@login_required
+
 def cargarColgantes(request):
     productos = Producto.objects.filter(categoria_id = 6)
     return render(request, "identificadores.html", {"prod": productos})
-@login_required
+
 def cargarJuguetes(request):
     productos = Producto.objects.filter(categoria_id = 7)
     return render(request, "juguetes.html", {"prod": productos})

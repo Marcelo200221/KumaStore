@@ -1,0 +1,6 @@
+django-crispy-forms
+crispy-bootstrap5
+gunicorn
+dj-database-url
+whitenoise
+psygopg2-binary

@@ -17,5 +17,9 @@ app/kuma/migrations
 
 app/kumaStore/.env
 
+.env 
+
+*.env
+
 
 db.sqlite3
