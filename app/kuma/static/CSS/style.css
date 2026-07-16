@@ -156,7 +156,62 @@ body.dark .footer{
 }
 
 .card{
+    width: 18rem;
+
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     background: white;
+    transition: 0.3s ease all;
+    margin-bottom: 30px;
+}
+
+.card:hover {
+    scale: 1.10;
+    transition: 0.3s ease all;
+}
+
+.card-body{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.select_button{
+    display: flex;
+    flex-direction: row ;
+    align-items: center;
+    background: white;
+    margin-left: 5px;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.select_button select{
+    border: none;
+    background: transparent;
+    outline: none;
+    padding-left: 5px;
+    cursor: pointer;
+    width: 20px;
+    max-width: 100px; /* Ajusta este valor para que quepa bien al lado de tu ícono */
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#icono-carrito {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#icono-carrito.carrito-activo {
+    color: #28a745; /* Color verde Bootstrap (puedes cambiarlo por tu color de acento) */
+    transform: scale(1.15); /* Crece sutilmente para dar feedback visual */
+}
+
+body.dark .fa{
+    color: white;
     transition: 0.3s ease all;
 }
 

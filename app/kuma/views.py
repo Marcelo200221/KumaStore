@@ -18,6 +18,15 @@ def cargarInicio(request):
 def cargarSesion(request):
    return render(request,"registration/login.html")
 
+def cargarProductos(request):
+    categoria_id = request.GET.get("categoria")
+    try:
+        cate_prod = Producto.objects.filter(categoria_id = categoria_id, stock__gt = 0)
+        cate = Categoria.objects.get(categoria_id = categoria_id)
+        return render(request, "productos.html", {"prod": cate_prod, "cate": cate})
+    except Exception as e:
+        print(f"No se encontro la categoria, error: {e}")
+
 def cargarBandana(request):
     cate_bandanas = Producto.objects.filter(categoria_id = 4, stock__gt = 0)
     return render(request, "bandanas.html", {"prod": cate_bandanas})

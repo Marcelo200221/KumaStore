@@ -1,7 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {% load static %}
+    <script>
+        const modo = localStorage.getItem("switch")
+
+        if (modo === "activo"){
+          document.documentElement.classList.add("dark")
+        }
+    </script>
+    <style>
+        /* Previene transiciones molestas mientras se carga la página */
+        .preload * {
+            -webkit-transition: none !important;
+            -moz-transition: none !important;
+            -ms-transition: none !important;
+            -o-transition: none !important;
+            transition: none !important;
+        }
+    </style>
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,13 +29,7 @@
     <script src="https://kit.fontawesome.com/2bddaf117c.js" crossorigin="anonymous"></script>
     <title>Los mejores productos para tu mascota | Kuma!</title>
     <link rel="icon" href="{% static 'IMG/logo titulo.png'%}">
-    <script>
-      const modo = localStorage.getItem("switch")
-
-      if (modo === "activo"){
-        document.documentElement.classList.add("dark")
-      }
-    </script>
+    
     {% block head %}
 
     {% endblock %}
@@ -31,7 +42,6 @@
         Bienvenido de vuelta ADMIN
       </div>
       <p class="ban"> ¿Desea agregar productos?, <a class="linkban" href="agregarProducto"> Presione aquí</a></p>
-      <p class="ban2"> ¿Desea eliminar los productos agregados?, <a class="linkban" href="eliminar_produto.html"> Presione aquí</a></p>
       {% else %}
        <div class="toast-body bg-success text-light position-fixed top-0 end-0 p-3" id="toast-iniciosesion" style="z-index: 11; border-radius: 4px;">
           Bienvenido de vuelta {{user.username}}
@@ -45,7 +55,7 @@
 
   <nav class="py-3 navbar navbar-dark bg-caution navbar-expand-md">
     <div class="logo">
-      <a class=" logo1 navbar-brand" href="inicio">
+      <a class=" logo1 navbar-brand" href="/inicio">
         <img src="{% static 'IMG/logo.png'%}" width="257" height="110" alt="">
         Kuma!
       </a>
@@ -72,7 +82,6 @@
           <li class="nav-item"><a class="nav-link" href="correa">Correas y arneses</a></li>
           <li class="nav-item"><a class="nav-link" href="colgante">Colgantes</a></li>
           <li class="nav-item"><a class="nav-link" href="juguete">Juguetes</a></li>
-          <li class="nav-item"><button class="btn" id="btncarrito" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><span class="fa fa-cart-shopping"></span></button></li>
           <li class="nav-item">
             <select onchange="cambioMoneda()" name="divisa" id="divisa" class="form-select">
               <option id="option1" name="txtClp"class="option" value="1">CLP</option>
@@ -88,22 +97,25 @@
                 <i class="fas fa-moon"></i>
               </span>
             </button>
-          </li>
+          </li>  
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <li class="nav-item">
-            <form action="{% url 'logout' %}" method="post">
+            <div class="select_button">
+              <i class="fa fa-user"></i>
+              <select name="opciones" id="opciones" class="select-icon">
+                <option value="logout">logout</option>
+              </select>
+            </div>
+            <form action="{% url 'logout' %}" id="form-logout" method="post">
               {% csrf_token %}
-              <button type="submit" class="cerrar">Cerrar sesión</button>
             </form>
           </li>
-          </li>
-
           {% else %}
           <li class="nav-item">
             <a href="{% url 'login' %}" class="inicio">Iniciar sesion</a>
           </li>
           {% endif %}
+          <li class="nav-item"><button class="btn" id="btncarrito" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><span id="icono-carrito" class="fa fa-cart-shopping"></span></button></li>
             
         </ul> 
       </div>
@@ -112,7 +124,7 @@
     
       
   </header>
-<body>
+<body class="preload">
   <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
     <div class="offcanvas-header">
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -194,10 +206,17 @@
     <script src="{% static 'JS/funciones_carrito.js'%}"></script>
     <script src="{%  static 'JS/api.js' %}"></script>
     <script src="{% static 'JS/funciones_toast.js' %}"></script>
+    <script src="{% static 'JS/funciones.js' %}"></script>
     {% block script %}
 
     {% endblock %}
 </body>
+<script>
+    // Una vez que el CSS y el HTML han cargado por completo, activamos las transiciones
+    window.addEventListener("load", () => {
+        document.body.classList.remove("preload");
+    });
+</script>
 <footer class="footer">
     <div class="left-footer">
       <div class="row">

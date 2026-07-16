@@ -8,18 +8,18 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         categorias = [
-            {"categoria_id": 1, "nombre": "Perro"},
-            {"categoria_id": 2, "nombre": "Gato"},
-            {"categoria_id": 3, "nombre": "Todos"},
-            {"categoria_id": 4, "nombre": "Bandanas"},
-            {"categoria_id": 5, "nombre": "Correas"},
-            {"categoria_id": 6, "nombre": "Colgantes"},
-            {"categoria_id": 7, "nombre": "Juguetes"},
-            {"categoria_id": 8, "nombre": "Comida"}
+            {"categoria_id": 1, "nombre": "Perro", "descripcion": "Productos para tu amigo canino"},
+            {"categoria_id": 2, "nombre": "Gato", "descripcion": "Productos para tu amigo felino"},
+            {"categoria_id": 3, "nombre": "Todos", "descripcion": "Todo lo que buscas está aquí"},
+            {"categoria_id": 4, "nombre": "Bandanas", "descripcion": "¡Bandanas de todo tipo!"},
+            {"categoria_id": 5, "nombre": "Correas", "descripcion": "Correas para todo proposito"},
+            {"categoria_id": 6, "nombre": "Colgantes", "descripcion": "Colgantes e identificadores para toda necesidad"},
+            {"categoria_id": 7, "nombre": "Juguetes", "descripcion": "Variedad de juguetes para que tu mascota no se aburra"},
+            {"categoria_id": 8, "nombre": "Comida", "descripcion": "Comidas de todo tipo para las necesidades de tus mascotas"}
         ]
 
         for data in categorias:
-            Categoria.objects.get_or_create(categoria_id = data["categoria_id"], defaults={"nombre": data["nombre"]})
+            Categoria.objects.update_or_create(categoria_id = data["categoria_id"], defaults={"nombre": data["nombre"], "descripcion": data["descripcion"]})
         
         self.stdout.write(self.style.SUCCESS("Categorias procesadas..."))
 
@@ -60,6 +60,6 @@ class Command(BaseCommand):
             if fecha_venc:
                 defaults_producto["fecha_vencimiento"] = fecha_venc
 
-            Producto.objects.get_or_create(sku = data["sku"], defaults=defaults_producto)
+            Producto.objects.update_or_create(sku = data["sku"], defaults=defaults_producto)
         
         self.stdout.write(self.style.SUCCESS("Datos base creados"))

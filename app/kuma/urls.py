@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.cargarInicio),
     path('inicio', views.cargarInicio),
     path('login', views.cargarSesion),
+    path('productos/', views.cargarProductos, name="cargar_productos"),
     path('bandana', views.cargarBandana),
     path('correa', views.cargarCorreas),
     path('colgante', views.cargarColgantes),

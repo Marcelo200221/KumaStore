@@ -10,22 +10,24 @@
   
   <div class="container">
     <div class="encabezado">
-      <h1>Comida</h1>
+      <h1>{{ cate.nombre }}</h1>
     <br>
-    <h3>Comidas nutritivas para tu mascota</h3>
+    <h3>{{ cate.descripcion }}</h3>
     </div>
     
-    <div class="row justify-content-center">
+    <div class="row">
       {% for p in prod %}
-      <div class="col-md-4 d-flex justify-content-center">
-        <div class="card" style="width: 18rem;">
-          <img src="{{p.imagen_url.url}}" class="card-image" alt="...">
+      <div class="col">
+        <div class="card">
+          <img src="{{p.imagen_url.url}}" id="imagen" class="card-image" alt="...">
           <div class="card-body">
-            <h5 class="card-title">{{p.nombre}}</h5>
+            <h5 class="card-title" name="nomprod">{{p.nombre}}</h5>
             <p class="card-text">{{p.descripcion}}</p>
             <p class="card-text2" data-clp="{{p.precio}}">${{p.precio}}</p>
             <p class="card-text3">Stock: {{p.stock}}</p>
-            <button id="card-button" class="boton-agregar btn btn-primary">Agregar al carrito</button>
+            <div class="mt-auto">
+                <button id="card-button" class="boton-agregar btn btn-primary">Agregar al carrito</button>
+            </div>
           </div>
         </div>
       </div>

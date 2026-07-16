@@ -5,10 +5,11 @@ from django.db import models
 class Categoria(models.Model):
     categoria_id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50, null=False)
+    descripcion = models.CharField(max_length=250, null=False)
 
     def __str__(self):
-        txt = "Nombre: {0} - {1}"
-        return txt.format(self.nombre, self.categoria_id)
+        txt = "Nombre: {0} - {1} - {2}"
+        return txt.format(self.nombre, self.categoria_id, self.descripcion)
         
 
 class Producto(models.Model):
