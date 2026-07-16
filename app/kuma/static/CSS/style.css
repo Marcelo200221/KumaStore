@@ -155,13 +155,21 @@ body.dark .footer{
     transition: 0.3s ease all;
 }
 
-.card{
-    width: 18rem;
+.nav-link{
+    color: #000;
+}
 
-    height: 100%;
+.logo1{
+    color: #000;
+}
+
+.card{
+    width: 100%;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     background: white;
+    border-radius: 8px;
     transition: 0.3s ease all;
     margin-bottom: 30px;
 }
@@ -219,6 +227,24 @@ body.dark .fa-user{
     color: black;
     transition: 0.3s ease all;
 }
+
+.columna{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 4px 15px;
+    gap: 5%;
+}
+
+@media (max-width: 768px) {
+    .columna{
+        flex-direction: column;
+        align-items: center;
+        gap: 5%;
+    }
+}
+
 
 body.dark .card{
     background: grey;

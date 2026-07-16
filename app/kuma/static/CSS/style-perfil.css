@@ -1,0 +1,64 @@
+.bienvenida{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.general{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.datos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 8px;
+    width: 500px;
+    padding: 20px;
+    gap: 8px;
+}
+
+.datos h3{
+    display: flex;
+    justify-content: left;
+}
+
+.botones {
+    display: flex;
+    flex-direction: row;
+    padding: 4px 8px;
+    gap: 8px;
+}
+
+#boton-editar{
+    transition: 0.3 ease all;
+}
+
+#boton-editar:hover{
+    scale: 1.10;
+    transition: 0.3 ease all;
+}
+
+#boton-guardar{
+    transition: 0.3 ease all;
+}
+
+#boton-guardar:hover{
+    scale: 1.10;
+    transition: 0.3 ease all;
+}
+
+.volver-inicio{
+    transition: 0.3s ease all
+}
+
+.volver-inicio:hover{
+    scale: 1.10;
+    transition: 0.3s ease all
+}

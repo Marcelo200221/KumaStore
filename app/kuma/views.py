@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login
 from django.http import JsonResponse, HttpResponse
 import json
 from django.contrib.auth.forms import UserCreationForm
+from .forms import EditarPerfilForm
 
 # Create your views here.
 def cargarInicio(request):
@@ -51,6 +52,9 @@ def cargarColgantes(request):
 def cargarJuguetes(request):
     productos = Producto.objects.filter(categoria_id = 7)
     return render(request, "juguetes.html", {"prod": productos})
+
+def cargarPerfil(request):
+    return render(request, "perfil.html")
 @login_required
 def agregarProducto(request):
     #print("AGREGAR PRODUCTO", request.POST)
@@ -163,6 +167,22 @@ def agregarUsuario(request):
         form = UserCreationForm()
 
     return render(request, "registration/registro.html", {"form": form})
+@login_required
+def editarUsuario(request):
+    if request.method == "POST":
+        form = EditarPerfilForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Tu perfil ha sido actualizado exitosamente")
+            return redirect("ver-perfil")
+        else:
+            print("El formulario de edicion no es valido: ", form.errors)
+            messages.error(request, "Hubo un error al intentar actualizar tus datos.")
+    else:
+        form = EditarPerfilForm(instance=request.user)
+    
+    return render(request, "perfil.html", {"form": form})
 @csrf_exempt
 def actualizar_stock(request):
      if request.method == 'POST':

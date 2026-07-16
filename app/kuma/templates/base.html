@@ -41,7 +41,7 @@
       <div class="toast-body bg-success text-light position-fixed top-0 end-0 p-3" id="toast-iniciosesion" style="z-index: 11; border-radius: 4px;">
         Bienvenido de vuelta ADMIN
       </div>
-      <p class="ban"> ¿Desea agregar productos?, <a class="linkban" href="agregarProducto"> Presione aquí</a></p>
+      <p class="ban"> ¿Desea agregar productos?, <a class="linkban" href="/agregarProducto"> Presione aquí</a></p>
       {% else %}
        <div class="toast-body bg-success text-light position-fixed top-0 end-0 p-3" id="toast-iniciosesion" style="z-index: 11; border-radius: 4px;">
           Bienvenido de vuelta {{user.username}}
@@ -49,7 +49,7 @@
        <p class="ban"> Disfruta de todos nuestros productos </p>
       {% endif %}
     {% else %}
-    <p class="ban"> <a href="login" class="iniciar">Inicia sesion</a> o <a href="registrar" class="registrarse">registrate</a> para una mejor experiencia </p>
+    <p class="ban"> <a href="/login" class="iniciar">Inicia sesion</a> o <a href="/registrar" class="registrarse">registrate</a> para una mejor experiencia </p>
     {% endif %}
   </div>
 
@@ -77,11 +77,11 @@
       
       <div class="collapse navbar-collapse" id="main-menu">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="comida">Comida</a></li>
-          <li class="nav-item"><a class="nav-link" href="bandana">Bandanas</a></li>
-          <li class="nav-item"><a class="nav-link" href="correa">Correas y arneses</a></li>
-          <li class="nav-item"><a class="nav-link" href="colgante">Colgantes</a></li>
-          <li class="nav-item"><a class="nav-link" href="juguete">Juguetes</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'cargar_productos' %}?categoria={{ 8 }}">Comida</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'cargar_productos' %}?categoria={{ 4 }}">Bandanas</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'cargar_productos' %}?categoria={{ 5 }}">Correas y arneses</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'cargar_productos' %}?categoria={{ 6 }}">Colgantes</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'cargar_productos' %}?categoria={{ 7 }}">Juguetes</a></li>
           <li class="nav-item">
             <select onchange="cambioMoneda()" name="divisa" id="divisa" class="form-select">
               <option id="option1" name="txtClp"class="option" value="1">CLP</option>
@@ -103,7 +103,9 @@
             <div class="select_button">
               <i class="fa fa-user"></i>
               <select name="opciones" id="opciones" class="select-icon">
+                <option value="default" default></option>
                 <option value="logout">logout</option>
+                <option value="perfil">Perfil</option>
               </select>
             </div>
             <form action="{% url 'logout' %}" id="form-logout" method="post">
