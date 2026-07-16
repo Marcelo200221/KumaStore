@@ -210,8 +210,13 @@ body.dark .footer{
     transform: scale(1.15); /* Crece sutilmente para dar feedback visual */
 }
 
-body.dark .fa{
+body.dark .fa-cart-shopping{
     color: white;
+    transition: 0.3s ease all;
+}
+
+body.dark .fa-user{
+    color: black;
     transition: 0.3s ease all;
 }
 
