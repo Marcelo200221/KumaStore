@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.http import JsonResponse, HttpResponse
 import json
 from django.contrib.auth.forms import UserCreationForm
@@ -183,6 +183,47 @@ def editarUsuario(request):
         form = EditarPerfilForm(instance=request.user)
     
     return render(request, "perfil.html", {"form": form})
+
+@login_required
+def editarContraseña(request):
+    
+    if request.method == "POST":
+        oldPass = request.POST.get("old_password")
+        if request.user.check_password(oldPass):
+            messages.success(request, "Contraseña actual verificada, ahora puedes cambiarla")
+            return render(request, "perfil.html", {"password_verified": True})
+        else:
+            messages.error(request, "La contraseña ingresada no es correcta")
+            return redirect("ver-perfil")
+    else:
+        return redirect ("ver-perfil")
+@login_required
+def guardarContraseña(request):
+    if request.method == "POST":
+        nueva_pass = request.POST.get("new_password")
+        confirmar_pass = request.POST.get("confirm_password")
+
+        if not nueva_pass or not confirmar_pass:
+            messages.error(request, "Todos los campos son obligatorios.")
+            return redirect("ver-perfil")
+
+        if nueva_pass != confirmar_pass:
+            messages.error(request, "Las contraseñas nuevas no coinciden.")
+            return redirect("ver-perfil")
+
+        if len(nueva_pass) < 8:
+            messages.error(request, "La contraseña debe tener al menos 8 caracteres")
+            return redirect("ver-perfil")
+
+        user = request.user
+        user.set_password(nueva_pass)
+        user.save()
+
+        update_session_auth_hash(request, user)
+
+        messages.success(request, "Tu contraseña ha sido cambiada con exito")
+        return redirect("ver-perfil")
+    return redirect("ver-perfil")
 @csrf_exempt
 def actualizar_stock(request):
      if request.method == 'POST':

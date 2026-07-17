@@ -28,3 +28,33 @@ document.getElementById("boton-editar").addEventListener("click", function(){
 
     })
 });
+
+document.getElementById("editar-contraseña").addEventListener("click", function(){
+    let campos = document.getElementById("campos-contraseña")
+    let otrosCampos = document.getElementById("campos-usuario")
+    let botonesUsuario = document.getElementById("botones-usuario")
+    let botonCambiar = document.getElementById("editar-contraseña")
+    let botonConfirmar = document.getElementById("btn-confirmar")
+
+    if(!campos.classList.contains("d-none")){
+        campos.classList.add("d-none")
+        botonConfirmar.classList.add("d-none")
+        otrosCampos.classList.remove("d-none")
+        botonesUsuario.classList.remove("d-none")
+        botonCambiar.innerHTML = "Cambiar contraseña"
+        return;
+    }
+
+
+    campos.classList.remove("d-none")
+    botonConfirmar.classList.remove("d-none")
+    otrosCampos.classList.add("d-none")
+    botonesUsuario.classList.add("d-none")
+
+    botonCambiar.innerHTML = "Cancelar"
+
+    botonConfirmar.addEventListener("click", function(){
+        document.getElementById("form-contraseña").submit()
+    })
+
+})

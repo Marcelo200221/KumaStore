@@ -4,6 +4,6 @@ document.getElementById('opciones').addEventListener('change', function(){
     if(valorSeleccionado == 'logout') {
         document.getElementById('form-logout').submit();
     } else if(valorSeleccionado == 'perfil') {
-        window.location.href = 'perfil'
+        window.location.href = '/perfil'
     }
 })

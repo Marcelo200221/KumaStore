@@ -9,14 +9,24 @@
     <title>Perfil</title>
 </head>
 <body>
+    <a type="button" href="/inicio" class="btn btn-secondary volver-inicio">Volver a inicio</a>
     <div>
+        
         {% if user.is_authenticated %}
         <h1 class="bienvenida">Bienvenido {{ user.username }}</h1>
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %}">
+                {{message}}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
         <div class="general">
             <div class="datos">
                 <h3>Datos</h3>
-                
-                    <div class="campos">
+                    <div class="campos" id="campos-usuario">
                         <form action="{% url 'editar-usuario' %}" id="editar-form" method="post">
                             {% csrf_token %}
                             <div class="campo-nombre">
@@ -29,13 +39,37 @@
                             </div>
                         </form>
                     </div>
-                    <div class="botones">
+                    <div class="botones" id="botones-usuario">
                         <button class="btn btn-primary" id="boton-editar">Editar</button>
                         <button type="submit" id="boton-guardar" class="btn btn-success d-none">Guardar</button>
                     </div>
+                    <div class="campos contraseña d-none" id="campos-contraseña">
+                        <form action="{% url 'editar-contraseña' %}" id="form-contraseña" method="post">
+                            {% csrf_token %}
+                            <p>Ingresa tu contraseña actual</p>
+                            <input type="password" name="old_password" id="input-ol-password" required class="form-control">
+                        </form>
+                    </div>
+                    {% if password_verified %}
+                        
+                        <div>
+                            <form action="{% url 'guardar-nueva-contraseña' %}" method="post">
+                                {% csrf_token %}
+                                <p>Nueva Contraseña:</p>
+                                <input type="password" name="new_password" id="input-new-password" required class="form-control">
+                                <p>Repetir Contraseña:</p>
+                                <input type="password" name="confirm_password" id="input-new-password2" required class="form-control">
+                                <button type="submit" class="btn btn-success">Cambiar</button>
+                            </form>
+                        </div>
+                     
+                    {% endif %}
                 
             </div>
-            <a type="button" href="/inicio" class="btn btn-secondary volver-inicio">Volver a inicio</a>
+            <div class="exterior">
+                <button class="btn btn-danger" id="editar-contraseña">Cambiar contraseña</button>
+                <button type="submit" class="btn btn-success d-none" id="btn-confirmar">Aceptar</button>
+            </div>
         </div>
 
         {% else %}

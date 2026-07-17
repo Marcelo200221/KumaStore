@@ -55,10 +55,16 @@
 }
 
 .volver-inicio{
+    margin: 20px;
     transition: 0.3s ease all
 }
 
 .volver-inicio:hover{
     scale: 1.10;
     transition: 0.3s ease all
+}
+.exterior{
+    display: flex;
+    flex-direction: row ;
+    gap: 20px;
 }

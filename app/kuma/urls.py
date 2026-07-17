@@ -18,6 +18,8 @@ urlpatterns = [
     path('eliminarProducto/<sku>', views.eliminarProducto),
     path('registrar', views.agregarUsuario, name='registrar'),
     path('editar', views.editarUsuario, name="editar-usuario"),
+    path('editar_contraseña', views.editarContraseña, name="editar-contraseña"),
+    path('cambiar_contraseña/confirmar', views.guardarContraseña, name="guardar-nueva-contraseña"),
     path('comida', views.cargarComida),
     path('actualizar_stock/', views.actualizar_stock, name='actualizar_stock')
 ]
