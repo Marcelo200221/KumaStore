@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        const modo = localStorage.getItem("switch")
+
+        if (modo === "activo"){
+          document.documentElement.classList.add("dark")
+        }
+    </script>
+    <style>
+        /* Previene transiciones molestas mientras se carga la página */
+        .preload * {
+            -webkit-transition: none !important;
+            -moz-transition: none !important;
+            -ms-transition: none !important;
+            -o-transition: none !important;
+            transition: none !important;
+        }
+    </style>
     {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +29,7 @@
 
     <title>Agregar producto</title>
 </head>
-<body>
+<body class="preload">
     <div class="mt-2">
         <button class="switch" id="switch">
             <span>
@@ -193,6 +210,12 @@
        </div>
         </div>
     </div>
+    <script>
+        // Una vez que el CSS y el HTML han cargado por completo, activamos las transiciones
+        window.addEventListener("load", () => {
+            document.body.classList.remove("preload");
+        });
+    </script>
     <script src="{% static 'JS/jquery-3.6.4.min.js'%}"></script>
     <script src="{% static 'JS/jquery.validate.min.js'%}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

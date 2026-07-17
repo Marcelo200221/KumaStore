@@ -212,6 +212,22 @@
     {% block script %}
 
     {% endblock %}
+    <div id="loader-overlay" class="loader-overlay d-none">
+      <div class="spinner-container">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    </div>
+    <div class="confirmar-logout d-none" id="modal-logout">
+      <div class="modal-out">
+        <h3>¿Seguro de que quieres salir?</h3>
+        <div class="modal-btn-out">
+          <button class="btn btn-primary" id="aceptar-logout">Aceptar</button>
+          <button class="btn btn-danger" id="cancelar-logout">Cancelar</button>
+        </div>
+      </div>
+    </div>
 </body>
 <script>
     // Una vez que el CSS y el HTML han cargado por completo, activamos las transiciones

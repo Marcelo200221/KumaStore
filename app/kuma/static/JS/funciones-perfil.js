@@ -58,3 +58,18 @@ document.getElementById("editar-contraseña").addEventListener("click", function
     })
 
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+    const loader = document.getElementById("loader-overlay");
+
+    document.querySelectorAll("form").forEach(form => {
+        form.addEventListener("submit", () => {
+            if(loader) {
+                loader.classList.remove("d-none")
+            }
+        })
+    })
+
+    
+})
+
