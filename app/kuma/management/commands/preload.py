@@ -1,6 +1,9 @@
 from django.core.management import BaseCommand
 from app.kuma.models import Producto, Categoria
+from django.core.files import File 
+from django.conf import settings
 import datetime
+import os
 
 class Command(BaseCommand):
 
@@ -53,13 +56,34 @@ class Command(BaseCommand):
                 "descripcion": data["descripcion"],
                 "stock": data["stock"],
                 "precio": data["precio"],
-                "categoria_id": categoria_obj, # Aquí pasamos la relación al objeto
-                "imagen_url": data["imagen_url"]       # Ajusta 'imagen' según el nombre exacto en tu modelo Producto
+                "categoria_id": categoria_obj,
             }
 
             if fecha_venc:
                 defaults_producto["fecha_vencimiento"] = fecha_venc
 
-            Producto.objects.update_or_create(sku = data["sku"], defaults=defaults_producto)
+            # 🔥 AQUÍ OCURRE LA MAGIA PARA CLOUDINARY 🔥
+            
+            # 1. Buscamos dónde está guardada físicamente la imagen en tu PC/Servidor local
+            # Esto asume que tienes las imágenes dentro de la carpeta 'media/imagenesProductos/' de tu proyecto
+            ruta_fisica_local = os.path.join(settings.MEDIA_ROOT, data["imagen_url"])
+
+            # 2. Verificamos si el archivo local existe antes de intentar abrirlo
+            if os.path.exists(ruta_fisica_local):
+                # Abrimos el archivo real en modo lectura binaria ('rb')
+                with open(ruta_fisica_local, 'rb') as archivo_real:
+                    # Buscamos o creamos el producto pasándole el ARCHIVO ABIERTO a través de 'File'
+                    # Nota: Cambia "imagen_url" por el nombre exacto de tu campo ImageField si se llama distinto
+                    producto, created = Producto.objects.update_or_create(sku = data["sku"], defaults=defaults_producto)
+                    
+                    # Guardamos el archivo directamente en el campo. Esto gatilla la subida automática a Cloudinary
+                    nombre_archivo = os.path.basename(data["imagen_url"])
+                    producto.imagen_url.save(nombre_archivo, File(archivo_real), save=True)
+                    
+                self.stdout.write(f"Producto SKU {data['sku']} procesado con imagen en la nube.")
+            else:
+                # Si no encuentra el archivo local, crea el producto sin intentar subir nada a la nube
+                self.stdout.write(self.style.WARNING(f"Advertencia: No se encontró el archivo local en {ruta_fisica_local}. Creando producto sin imagen."))
+                Producto.objects.update_or_create(sku = data["sku"], defaults=defaults_producto)
         
-        self.stdout.write(self.style.SUCCESS("Datos base creados"))
+        self.stdout.write(self.style.SUCCESS("Datos base creados con éxito"))
