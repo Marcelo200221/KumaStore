@@ -157,7 +157,7 @@ if not DEBUG:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'media'),
+    os.path.join(BASE_DIR, 'app/kuma/static'),
 ]
 
 MEDIA_URL = 'media/'
