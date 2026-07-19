@@ -47,8 +47,6 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 # Application definition
 
 INSTALLED_APPS = [
-    'cloudinary_storage',
-    'cloudinary',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -61,14 +59,6 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
 ]
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'gcpljpzi',
-    'API_KEY': os.environ.get("API_KEY"),
-    'API_SECRET': os.environ.get("API_SECRET")
-}
 
 CRISPY_ALLOWED_TEMPLATE_PACK = "bootstrap5"
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
