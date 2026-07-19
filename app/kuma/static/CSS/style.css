@@ -72,7 +72,7 @@ body{
 
 
 body.dark {
-    background: #111111;
+    background: #191e30;
 }
 
 .switch{
@@ -418,8 +418,9 @@ body.dark .cerrar, body.dark .inicio{
     transition: .3s ease all;
 }
 
+
 .table {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
 }
 
 .table tbody,
@@ -427,7 +428,43 @@ body.dark .cerrar, body.dark .inicio{
 .table tr,
 .table td,
 .table th {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
+}
+
+body.dark .table {
+    background-color: rgb(245, 242, 218);
+}
+
+body.dark .table tbody,
+body.dark .table thead,
+body.dark .table tr,
+body.dark .table td,
+body.dark .table th {
+    background-color: rgb(245, 242, 218);
+}
+
+.input{
+    background: rgb(255, 255, 255);
+}
+
+body.dark .input{
+    background: rgb(245, 242, 218);
+}
+
+.btn-eliminar{
+    background: rgb(198, 212, 0); 
+}
+
+.btn-editar{
+    background: rgb(222, 236, 95); 
+}
+
+body.dark .btn-eliminar{
+    background: rgb(43, 18, 102); 
+}
+
+body.dark .btn-editar{
+    background: rgb(67, 40, 131); 
 }
 
 
