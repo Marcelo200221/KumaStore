@@ -85,3 +85,10 @@
 .spinner-container{
     text-align: center;
 }
+
+#switch-color{
+    display: flex;
+    justify-content: right;
+    align-items: end;
+    margin: 10px 10px;
+}

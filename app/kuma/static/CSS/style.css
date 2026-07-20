@@ -467,6 +467,65 @@ body.dark .btn-editar{
     background: rgb(67, 40, 131); 
 }
 
+.opciones-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    gap: 10px;
+    padding: 4px 10px;
+}
+
+@media (max-width: 768px) {
+    .opciones-nav{
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 4px;
+    }
+}
+
+.nav-item:hover{
+    transition: 0.3ms ease all;
+    color: #fff;
+}
+
+.img-edicion{
+    width: 150px;
+    height: auto;
+}
+
+body.dark .bienvenida{
+    color: #FFFA98
+}
+
+.datos{
+    background: #bebebe;
+}
+
+body.dark .datos{
+    background: #949494;
+}
+
+body.dark .campo-nombre{
+    color: #fff;
+}
+
+body.dark .campo-email{
+    color: #fff;
+}
+
+#boton-editar{
+    background: rgb(239, 248, 117);
+}
+
+body.dark #boton-editar{
+    background: rgb(67, 40, 131);
+    color: #fff;
+}
+
+
 
 /*Importo las fuentes*/
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300&display=swap');

@@ -194,7 +194,7 @@
                           <td>{{p.descripcion}}</td>
                           <td>{{p.stock}}</td>
                           <td>{{p.precio}}</td>
-                          <td>{{p.imagen_url}}</td>
+                          <td><img class="img-edicion" src={{p.imagen_url}} alt="No hay imagen"></td>
                           <td class="d-flex">
                             <a href="/editarProducto/{{p.sku}}" class="btn btn-editar mx-2">Editar</a>
                             <a href="/eliminarProducto/{{p.sku}}" class="btn btn-eliminar mx-2" >Eliminar</a>
