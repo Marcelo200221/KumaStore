@@ -11,6 +11,17 @@ from django.http import JsonResponse, HttpResponse
 import json
 from django.contrib.auth.forms import UserCreationForm
 from .forms import EditarPerfilForm
+import cloudinary
+import cloudinary.uploader
+
+
+
+cloudinary.config(
+    cloud_name = "gcpljpzi",
+    api_key = os.environ.get("API_KEY"),
+    api_secret = os.environ.get("API_SECRET"),
+    secure = True
+)
 
 # Create your views here.
 def cargarInicio(request):
@@ -58,11 +69,16 @@ def cargarPerfil(request):
 @login_required
 def agregarProducto(request):
     #print("AGREGAR PRODUCTO", request.POST)
+    if request.method != 'POST':
+        messages.error("El metodo utilizado no corresponde")
+        return redirect('/agregarProducto')
+    
     v_sku = request.POST['txtSku']
     v_nombre = request.POST['txtNombre']
     v_descripcion = request.POST['txtDescripcion']
     v_precio = request.POST['txtPrecio']
     v_image = request.FILES.get('txtImg')
+
     if request.POST['fechaVencimientoSel'] == "":
         v_fecha_vencimiento = None
     else:
@@ -71,12 +87,26 @@ def agregarProducto(request):
     v_categoria_id = request.POST.get('cmdCategoria', '')
 
     if v_sku == ''  or v_nombre == '' or v_descripcion == '' or v_precio == '' or  not v_image or v_stock == '' or v_categoria_id == '':
-        messages.warning(request, '.')
+        messages.warning(request, 'Alguno de los campos está vacio')
         return redirect('/agregarProducto')
     else:
         messages.success(request, '.') #The argument cannot be empty
         v_categoria = Categoria.objects.get(categoria_id = v_categoria_id)
-        Producto.objects.create(sku = v_sku, nombre=v_nombre, descripcion=v_descripcion, stock=v_stock, precio=v_precio, fecha_vencimiento=v_fecha_vencimiento,categoria_id=v_categoria, imagen_url=v_image)
+       
+            
+                
+                # 3. SUBIDA DIRECTA AL SERVIDOR DE CLOUDINARY
+                # Usamos el método oficial. Esto sube el archivo local y nos devuelve un diccionario con los datos de internet
+        resultado_subida = cloudinary.uploader.upload(v_image)
+                
+            # Obtenemos la URL segura (https) que nos dio Cloudinary
+        url_en_la_nube = resultado_subida["secure_url"]
+
+        if Producto.objects.filter(sku=v_sku).exists():
+            messages.error(request, f'El SKU {v_sku} ya pertenece a otro producto activo.')
+            return redirect('/agregarProducto')
+        
+        Producto.objects.create(sku = v_sku, nombre=v_nombre, descripcion=v_descripcion, stock=v_stock, precio=v_precio, fecha_vencimiento=v_fecha_vencimiento,categoria_id=v_categoria, imagen_url=url_en_la_nube)
     
 
     
@@ -109,11 +139,30 @@ def editarProductoForm(request):
     v_stock = request.POST['stock']
     v_categoria = Categoria.objects.get(categoria_id = request.POST['cmdCategoria'])
 
-    try:
-        v_image = request.FILE['imagen']
-        ruta_imagen = os.path.join(settings.MEDIA_ROOT, str(productoBD.imagen_url))
-        os.remove(ruta_imagen)
-    except:
+    if 'imagen' in request.FILES:
+        nueva_imagen_archivo = request.FILES['imagen']
+
+        if productoBD.imagen_url:
+
+            try:
+                url_texto = str(productoBD.imagen_url)
+                nombre_archivo = os.path.basename(url_texto)
+                public_id_viejo = os.path.splitext(nombre_archivo)[0]
+
+                cloudinary.uploader.destroy(public_id_viejo)
+            except Exception as e:
+                print(f"No se pudo eliminar la imagen anterior de cloudinary: {e}")
+            
+        try:
+            resultado_subida = cloudinary.uploader.upload(
+                nueva_imagen_archivo
+            )
+            v_image = resultado_subida['secure_url']
+        except Exception as e:
+            print(f"Error al subir la nueva imagen: {e}")
+            v_image = productoBD.imagen_url
+    else:
+        messages.warning("No se encontró imagen de cambio")
         v_image = productoBD.imagen_url
     
 
@@ -133,8 +182,10 @@ def editarProductoForm(request):
 def eliminarProducto(request,sku):
     print("ELIMINAR PRODUCTO",sku)
     producto = Producto.objects.get(sku = sku)
-    ruta_imagen = os.path.join(settings.MEDIA_ROOT, str(producto.imagen_url))
-    os.remove(ruta_imagen)
+    url_texto = str(producto.imagen_url)
+    nombre_archivo = os.path.basename(url_texto)
+    public_id_viejo = os.path.splitext(nombre_archivo)[0]
+    cloudinary.uploader.destroy(public_id_viejo)
     producto.delete()
     return redirect('/agregarProducto')
 

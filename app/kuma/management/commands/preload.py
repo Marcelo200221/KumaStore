@@ -61,33 +61,26 @@ class Command(BaseCommand):
             if "fecha_vencimiento" in data:
                 fecha_venc = datetime.datetime.strptime(data["fecha_vencimiento"], "%d/%m/%Y").date()
 
-            # Corregimos posibles problemas de mayúsculas en las carpetas locales de Windows/Linux
             nombre_carpeta_limpio = data["imagen_url"].replace("imagenesProductos/", "ImagenesProductos/")
             ruta_fisica_local = os.path.join(settings.MEDIA_ROOT, nombre_carpeta_limpio)
 
             if os.path.exists(ruta_fisica_local):
                 self.stdout.write(f"Subiendo imagen de {data['nombre']} a Cloudinary...")
                 
-                # 3. SUBIDA DIRECTA AL SERVIDOR DE CLOUDINARY
-                # Usamos el método oficial. Esto sube el archivo local y nos devuelve un diccionario con los datos de internet
                 resultado_subida = cloudinary.uploader.upload(
                     ruta_fisica_local,
-                    public_id = os.path.splitext(os.path.basename(nombre_carpeta_limpio))[0] # Usa el nombre del archivo como ID único
+                    public_id = os.path.splitext(os.path.basename(nombre_carpeta_limpio))[0] 
                 )
                 
-                # Obtenemos la URL segura (https) que nos dio Cloudinary
                 url_en_la_nube = resultado_subida["secure_url"]
 
-                # 4. GUARDAMOS EN DJANGO
-                # Si el producto ya existía, lo actualizamos; si no, lo creamos.
-                # En el campo de la imagen guardamos directamente la URL de internet que nos devolvió Cloudinary.
                 defaults_producto = {
                     "nombre": data["nombre"],
                     "descripcion": data["descripcion"],
                     "stock": data["stock"],
                     "precio": data["precio"],
                     "categoria_id": categoria_obj,
-                    "imagen_url": url_en_la_nube  # 👈 Guardamos la URL de internet directamente
+                    "imagen_url": url_en_la_nube 
                 }
                 if fecha_venc:
                     defaults_producto["fecha_vencimiento"] = fecha_venc
