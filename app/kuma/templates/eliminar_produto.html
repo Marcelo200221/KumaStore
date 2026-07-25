@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        if (localStorage.getItem("switch") === "activo") {
+          document.documentElement.classList.add("dark");
+        }
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +17,11 @@
     <title>Eliminar Producto</title>
 </head>
 <body>
+    <script>
+        if (localStorage.getItem("switch") === "activo") {
+            document.body.classList.add("dark");
+        }
+    </script>
     <button class="switch" id="switch">
 		<span>
 		  <i class="fas fa-sun"></i>

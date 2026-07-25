@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script>
+		if (localStorage.getItem("switch") === "activo") {
+			document.documentElement.classList.add("dark");
+		}
+	</script>
 	{% load static %}
 
 	{% load crispy_forms_tags %}
@@ -12,6 +17,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+	<script>
+		if (localStorage.getItem("switch") === "activo") {
+			document.body.classList.add("dark");
+		}
+	</script>
 	
 	<img class="wave" src="{% static 'IMG/wave.png'%}">
 	<div class="container">

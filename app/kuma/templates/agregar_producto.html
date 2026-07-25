@@ -30,6 +30,11 @@
     <title>Agregar producto</title>
 </head>
 <body class="preload">
+    <script>
+        if (localStorage.getItem("switch") === "activo") {
+            document.body.classList.add("dark");
+        }
+    </script>
     <div class="mt-2">
         <button class="switch" id="switch">
             <span>

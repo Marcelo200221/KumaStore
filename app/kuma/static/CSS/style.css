@@ -71,7 +71,7 @@ body{
 }
 
 
-body.dark {
+html.dark, html.dark body, body.dark {
     background: #191e30;
 }
 

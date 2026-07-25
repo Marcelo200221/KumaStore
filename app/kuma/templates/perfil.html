@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        if (localStorage.getItem("switch") === "activo") {
+          document.documentElement.classList.add("dark");
+        }
+    </script>
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +16,11 @@
     <title>Perfil</title>
 </head>
 <body>
+    <script>
+        if (localStorage.getItem("switch") === "activo") {
+            document.body.classList.add("dark");
+        }
+    </script>
     <div class="mt-2" id="switch-color">
         <button class="switch" id="switch">
             <span>

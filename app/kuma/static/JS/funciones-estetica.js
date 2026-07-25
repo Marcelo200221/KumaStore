@@ -3,35 +3,42 @@
 const $tiempo=document.querySelector('.tiempo');
 
 function relojDigital(){
-    let f= new Date();
-    let timeString= f.toLocaleTimeString();
-    $tiempo.innerHTML=timeString;
+    if ($tiempo) {
+        let f= new Date();
+        let timeString= f.toLocaleTimeString();
+        $tiempo.innerHTML=timeString;
+    }
 }
-setInterval(() => {
-    relojDigital()
-}, 1000);
+if ($tiempo) {
+    setInterval(() => {
+        relojDigital();
+    }, 1000);
+}
 
 const btnSwitch = document.querySelector('#switch');
 
-flick = localStorage.getItem("switch")
+const flick = localStorage.getItem("switch");
 
-if (flick == "activo"){
-    document.body.classList.toggle('dark');
-    btnSwitch.classList.toggle('active');
-
+if (flick === "activo"){
+    document.body.classList.add('dark');
+    document.documentElement.classList.add('dark');
+    if (btnSwitch) btnSwitch.classList.add('active');
+} else {
+    document.body.classList.remove('dark');
+    document.documentElement.classList.remove('dark');
+    if (btnSwitch) btnSwitch.classList.remove('active');
 }
 
-btnSwitch.addEventListener('click', () => {
-    
-    document.body.classList.toggle('dark');
-    btnSwitch.classList.toggle('active');
+if (btnSwitch) {
+    btnSwitch.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        document.documentElement.classList.toggle('dark');
+        btnSwitch.classList.toggle('active');
 
-    if(document.body.classList.contains('dark')){
-        localStorage.setItem("switch", "activo")
-    } else {
-        localStorage.setItem("switch", "inactivo")
-    }
-
-    
-
-})
+        if(document.body.classList.contains('dark') || document.documentElement.classList.contains('dark')){
+            localStorage.setItem("switch", "activo");
+        } else {
+            localStorage.setItem("switch", "inactivo");
+        }
+    });
+}

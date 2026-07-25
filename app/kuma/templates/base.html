@@ -127,6 +127,11 @@
       
   </header>
 <body class="preload">
+  <script>
+      if (localStorage.getItem("switch") === "activo") {
+          document.body.classList.add("dark");
+      }
+  </script>
   <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
     <div class="offcanvas-header">
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
